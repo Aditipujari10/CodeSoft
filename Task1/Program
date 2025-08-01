@@ -1,0 +1,55 @@
+import java.util.Scanner;
+public class Program {
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		int studentId;
+		String name;
+		int numberOfStudent;
+		int totalSubject;
+		double marks;
+		double totalMarks=0;
+		double averageMarks;
+		
+		System.out.print("Enter Number Of Students : ");
+		numberOfStudent = sc.nextInt();
+		System.out.print("Enter Number Of subject : ");
+		totalSubject = sc.nextInt();
+		
+		for(int i=1;i<=numberOfStudent;i++) {
+			System.out.println("Enter " + i + " Student details : ");
+			totalMarks = 0;
+			for(int j=1;j<=totalSubject;j++) {
+				int current = j;
+				System.out.print("Enter " + j + " Subject Marks : ");
+				marks = sc.nextDouble();
+				if(marks<=100) {
+					totalMarks = totalMarks + marks;
+				}
+				else {
+					System.out.println("Please !! Enter Marks Out Of 100");
+					j=current-1;
+				}
+			}
+			System.out.println("Total Marks : " + totalMarks);
+			averageMarks = totalMarks/totalSubject;
+			System.out.println("Average Percentage : " + averageMarks);
+	
+			if(averageMarks<=100 && averageMarks>80)
+				System.out.println("Grade : A");
+			else if(averageMarks<=80 && averageMarks>70)
+				System.out.println("Grade : B");
+			else if(averageMarks<=70 && averageMarks>30)
+				System.out.println("Grade : C");
+			else 
+			{
+				System.out.println("Grade : F");
+				System.out.println("you need to study more....:)");
+			}
+			
+			System.out.println();
+		}
+
+	}
+
+}
