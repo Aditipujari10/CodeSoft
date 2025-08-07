@@ -1,0 +1,153 @@
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class ATM {
+	private String accNumber;
+	private double balance;
+	private String userPIN;
+	
+	public ATM() {
+		
+	}
+
+	public ATM(String accNumber,double balance, String userPIN) {
+		this.accNumber = accNumber;
+		this.balance = balance;
+		this.userPIN = userPIN;
+	}
+
+	public String getAccNumber() {
+		return accNumber;
+	}
+
+	public void setAccNumber(String accNumber) {
+		this.accNumber = accNumber;
+	}
+
+	public double getBalance() {
+		return balance;
+	}
+
+	public void setBalance(double balance) {
+		this.balance = balance;
+	}
+
+	public String getUserPIN() {
+		return userPIN;
+	}
+
+	public void setUserPIN(String userPIN) {
+		this.userPIN = userPIN;
+	}
+	
+	public void deposit(double amount) {
+		if (amount > 0) {
+			balance += amount;
+			System.out.println("Deposited successfully.");
+			System.out.println("Your Current balance is " + balance);
+		} else {
+			System.out.println("Invalid amount.");
+		}
+    }
+
+    public boolean withdraw(double amount) {
+    	if (amount > 0 && balance >= amount) {
+			balance -= amount;
+			System.out.println("Amount withdraw successfully.");
+			System.out.println("Your Current balance is " + balance);
+			return true;
+		} else {
+			System.out.println("Insufficient balance");
+			return false;
+		}
+
+    }
+}
+
+
+class Program {
+	public static int menuList(Scanner sc) {
+		int choice;
+		System.out.println("-------------------------------");
+		System.out.println("Welcome To ATM");
+		System.out.println("ATM Menu : ");
+		System.out.println("1.Withdraw Money ");
+		System.out.println("2.Deposite Money ");
+		System.out.println("3.Check Balance");
+		System.out.println("4.Exit");
+		System.out.print("Enter Your Choice : ");
+		choice = sc.nextInt();
+		System.out.println("-------------------------------");
+		return choice;
+	}
+	
+	
+	public static void main(String[] args) {
+		List<ATM> atm = new ArrayList<>();
+		atm.add(new  ATM("101",100000,"1243"));
+		atm.add(new  ATM("102",200000,"2243"));
+		atm.add(new  ATM("103",300000,"3243"));
+		atm.add(new  ATM("104",400000,"4243"));
+		atm.add(new  ATM("105",500000,"5243"));
+		atm.add(new  ATM("106",600000,"6243"));
+		atm.add(new  ATM("107",700000,"7243"));
+		atm.add(new  ATM("108",800000,"8243"));
+		atm.add(new  ATM("109",900000,"9243"));
+		 
+	      
+		Scanner sc = new Scanner(System.in);
+		
+		System.out.println("Enter Account Number : ");
+		String AccNumber = sc.next();
+		System.out.println("Enter PIN : ");
+		String PIN = sc.next();
+		
+		ATM loggedInAccount = null;
+
+		for (ATM a : atm) {
+		    if (a.getAccNumber().equals(AccNumber) && a.getUserPIN().equals(PIN)) {
+		        loggedInAccount = a;
+		        break;
+		    }
+		}
+
+		if (loggedInAccount != null) {
+		    System.out.println("Login successful!");
+		} else {
+		    System.out.println("Invalid account number or PIN.");
+		    return;
+		}
+
+		int choice;
+		while((choice = menuList(sc))!=5) {
+			switch(choice) {
+				case 1 : {
+					System.out.print("Enter Amount to Withdraw : ");
+					double amount = sc.nextDouble(); 
+					loggedInAccount.withdraw(amount);
+					break;
+				}
+				
+				case 2 : {
+					System.out.print("Enter Amount to Deposite : ");
+					double amount = sc.nextDouble(); 
+					loggedInAccount.deposit(amount);
+					break;
+				}
+				case 3: {
+					System.out.println("Current Balance: ₹" + loggedInAccount.getBalance());
+					break;
+				}
+				case 4 : {
+					System.out.println("Exit.....!!!");
+				}
+				default:
+					System.out.println("Invalid choice.");
+			}
+		}
+
+	}
+
+}
+
